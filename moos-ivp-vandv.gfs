@@ -1,0 +1,17 @@
+//====================================================================
+module   = Testing Toolbox
+type     = group
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+synopsis = The Testing Toolbox provides a number of utilities and apps
+  aimed at providing (a) run time analysis modules for assessing one or
+  more mission aspects (b) post-missions tools for analyzing and logged
+  data and preparing data for plotting, and (c) scripts and auto-launch
+  tools for automating large sets of mission variations.
+
+group    = Testing Toolbox
+doc_url  = http://oceanai.mit.edu/ivpman
+distro   = moos-ivp.org
+
+

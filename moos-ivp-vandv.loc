@@ -1,0 +1,14 @@
+module=app_alogeval, loc=251, foc=3, wkyrs=0.05
+module=app_gen_obstacles, loc=101, foc=3, wkyrs=0.02
+module=pEvalLoiter, loc=654, foc=5, wkyrs=0.13
+module=pMissionEval, loc=387, foc=5, wkyrs=0.07
+module=pMovingSurvey, loc=350, foc=5, wkyrs=0.07
+module=uFldLoiterAssign, loc=443, foc=5, wkyrs=0.09
+module=uFldWrapDetect, loc=339, foc=5, wkyrs=0.06
+
+module=app_ippgen, loc=397, foc=3, wkyrs=0.08
+module=app_ippplt, loc=184, foc=3, wkyrs=0.03
+module=app_ippsolve, loc=314, foc=3, wkyrs=0.06
+module=app_ippview, loc=517, foc=5, wkyrs=0.10
+module=app_isrplot, loc=555, foc=6, wkyrs=0.11
+module=app_isrtex, loc=635, foc=7, wkyrs=0.12

@@ -1,0 +1,523 @@
+//====================================================================
+module   = pTaskManager
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+thumb    = Manage incoming tasks and bids for decentralized decision-making
+
+synopsis = The pTaskManager app is a broker that resides on any
+vehicle participating in decentralized collaborative decision making
+with other vehicles.  The task manager does four primary things: (1)
+Accept registrations for alerts from helm behaviors related to bidding
+on tasks.  (2) Accept incoming MISSION_TASK messages and spawn helm
+behaviors related to bidding on tasks.  (3) As a persistent app that
+is running during the entire mission, it will monitor incoming task
+bids from other vehicles that may arrive prior to the spawning of a
+task behavior that needs these bid messages. It retains a cache of
+"early-arriving" task bids and re-posts them when the task behavior is
+spawned. (4) The task manager monitors outgoing MISSION_TASK messages
+and TASK_STATE status messages produced by local task behaviors. It
+consolidates this information to generate appcasting output which may
+be useful for debugging and monitoring a mission.
+
+distro   = moos-ivp.org
+group    = SwarmBox
+borndate = 181202
+doc_url  = https://oceanai.mit.edu/swarmbox/apps/pTaskManager
+license  = unreleased
+depends  = lib_helmtask, lib_apputil, lib_ufield, lib_logic, lib_mbutil
+
+
+//====================================================================
+module   = pMediator
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+thumb    = Manage inter-vehcicle messaging, supporting acknowledgements and re-sends
+
+synopsis = The pMediator application is a tool for mediating messages
+  between vehicles in situations without guaranteed message
+  arrivals. Outgoing messages may request a return acknowledgement
+  message (an ”ack”), and periodically repeat the message until an ack
+  is received or time limit or re-send limit has been reached. The
+  policy for repeating a message may be configured individually per
+  message type to account for vital messages and nice-to-have
+  messages. The pMediator app runs on each vehicle and stores local
+  information to handle outgoing and incoming messages. Handling of
+  incoming messages involves both sending return acknowledgement
+  messages and ensuring that no incoming message is posted twice.
+
+distro   = moos-ivp.org
+group    = SwarmBox
+borndate = 220214
+doc_url  = https://oceanai.mit.edu/swarmbox/apps/pMediator
+license  = unreleased
+depends  = lib_apputil, lib_mbutil
+
+//====================================================================
+module   = pEncircle
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+thumb    = Advise the Helm Loiter behavior on speeds relative to contacts
+
+synopsis = The pEncircle app works in conjuction with the Helm Loiter
+  behavior by posting adjustments to the loiter speed based on ownship
+  position relative to other contacts also traversing the same loiter
+  polygon. The goal is to adjust ownship speed to keep the distances
+  between ownship and the vehicle fore and aft, as similar as
+  possible.  It subscribes for the node reports of ownship and all
+  contacts and is capable of receiving commands to adjust the applied
+  algorithm.
+
+distro   = moos-ivp.org
+group    = SwarmBox
+borndate = 170327
+doc_url  = https://oceanai.mit.edu/swarmbox/apps/pEncircle
+license  = unreleased
+depends  = lib_apputil, lib_mbutil, lib_contacts, lib_ufield, lib_geometry
+
+//====================================================================
+module   = BHV_Muster
+type     = Behavior
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A behavior mustering in a region and keeping separation from others
+
+borndate = 211108
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = The Muster behavior drives the vehicle toward a convex
+  polygon and works in cooperation with other vehicles, presumably
+  also running a muster behavior with the same polygon. Each vehicle
+  shares its position with all other vehicles and calculates the Voronoi
+  distribution of vehicle and drives the vehicle toward the center of
+  its own local polygon in the distribution.
+
+//====================================================================
+module   = BHV_TaskMuster
+type     = Behavior
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A task behavior for auctioning on traversing to a muster region
+
+borndate = 211110
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = The TaskMuster behavior is of type IvPTaskBehavior, meaning
+  its sole job is to generate a bid to a collaborative auction and
+  wait for a consensus. The bid in this case is based on the relative
+  appropriateness of ownship proceeding to a muster region.
+
+//====================================================================
+module   = BHV_TaskWaypoint
+type     = Behavior
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A task behavior for auctioning on traversing to a destination
+
+borndate = 181205
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = The TaskWaypoint behavior is of type IvPTaskBehavior,
+  meaning its sole job is to generate a bid to a collaborative auction
+  and wait for a consensus. The bid in this case is based on the
+  relative appropriateness of ownship proceeding to a destination
+  point, given the point and the vehicle starting position and
+  orientation.
+
+//====================================================================
+module   = BHV_TaskConvoy
+type     = Behavior
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A task behavior for auctioning on forming a convoy ordering
+
+borndate = 201219
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = The TaskConvoy behavior is of type IvPTaskBehavior, meaning
+  its sole job is to generate a bid to a collaborative auction and
+  wait for a consensus. The bid in this case is based on the relative
+  appropriateness of ownship joining a convoy, given the position and
+  orientation of the tail vehicle in the convoy, and ownship position.
+
+//====================================================================
+module   = uSimMarineX
+
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A much faster new version of uSimMarine with embedded PID controller
+
+depends = lib_mbutil, lib_apputil, lib_geometry, lib_contacts, lib_marine_pid
+
+
+borndate = 200103
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = The uSimMarineX application is a simple 3D vehicle
+  simulator that updates vehicle state, position and trajectory, based
+  on the present actuator values and prior vehicle state. Typical
+  usage scenario has a single instance of uSimMarineX associated with
+  each simulated vehicle.  uSimMarineX is a derivative of the original
+  uSimMarine. This new version has the abililty to embed a PID
+  controller within the simulator for tighter coordination between sim
+  and control which allows for much higher time warp simulations.  The
+  PID controller is the same as in pMarinePID. This simulator also has
+  support for wormholes. 
+
+//====================================================================
+module   = alogmtask
+
+type     = Command line utility
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = Analyze an alog file for mission task events and resolutions
+
+depends = lib_mbutil, lib_apputil, lib_logutils, lib_helmtask
+
+borndate = 211114
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = Analyze set of vehicle alog files for mission task info.
+  Normally the alog file for all vehicle are passed as
+  arguments. Postings to the variable MISSION_TASK are key determining
+  when a task has been assigned to some sub-set of vehicles.  The N
+  alog files are analyzed to discern when a single task has been posed
+  to the set of vehicles. The results of the task auction are analyzed
+  across all N alog files and a single result is shown for each task,
+  along with the losing bids produce by the other vehicles. The bulk of
+  this code resides in lib_helmtask. The output of alogmtask and the
+  appcasting output of uFldTaskMonitor are similar, derived from the
+  lib_helmtask core classes.
+
+//====================================================================
+module   = pMarinePIDx
+
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A refactored PID controller using new utility classes. 
+
+depends = lib_mbutil, lib_marine_pid, lib_geometry
+
+borndate = 200103
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = Provides a basic PID controller interface to control heading  
+  speed and depth based on incoming desired heading, speed and  
+  depth objectives and output on rudder, thrust and elevator    
+  fed through three PID controllers. This app differs from its previous
+  version only in implementation. Most of the logic has been repackaged
+  into a utility class so that it may optionally be embedded inside
+  uSimMarineX.
+
+//====================================================================
+module   = lib_marine_pid
+
+type     = Library
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = Library holding PID Engine code for embedding in apps using PID control
+
+borndate = 050731
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = This library holds the PIDEngine and ScalarPID classes
+  which are the primary tools for PID control. They formally existed
+  with the pMarinePID application. They have been moved to their own
+  library to (a) allow PID controlled to be embedded in the
+  uSimMarineX simulator and (b) continue to be used inside the
+  pMarinePIDx app.
+
+//====================================================================
+module   = lib_voronoi
+
+type     = Library
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = Library holding key data structures and utilities for Voronoi apps/behaviors.
+
+borndate = 190919
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = This library holds key classes and utilities for supporting
+  several apps and behaviors based on the Voronoi family of algorithms. 
+
+//====================================================================
+module   = lib_genpoly
+
+type     = Library
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = Library representing and handling general non-convex polygons
+
+borndate = 201016
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = This library support computing with non-convex polygons, including
+  the creation of grids that cover non-convex regions and algorithms for covering
+  a non-convex polygon with a set of convex polygons.
+
+//====================================================================
+module   = uFldTaskMonitor
+
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A shoreside tool for monitoring tasks across a group of vehicles.
+
+borndate = 200103
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = The uFldTaskMonitor application is used for providing a
+  shore-side appcasting summary of tasks that have been received by
+  each node, and how they have been resolved. It is purely for
+  monitoring and debugging.
+
+
+//====================================================================
+module   = uFldVoronoi
+
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A shoreside tool for rendering vehicles participating in a Voronoi coverage
+
+depends = lib_mbutil, lib_ufield, lib_contacts, lib_apputil, lib_geometry, lib_voronoi
+
+borndate = 200119
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = A shoreside tool maintaining a current state of all
+  vehicles reporting node reports to the shoreside. It will repeatedly
+  build a Voronoi decomposition of the given search region and
+  generate a Voronoi polygon for each vehicle.
+  
+//====================================================================
+module   = lib_helmtask
+
+type     = Library
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = Library of core classes and utilities for task related behaviors and apps
+
+borndate = 181205
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = This library holds the IvPTaskBehavior superclass of all
+  helm task behaviors, as well as the MissionTask core data structure
+  and other common classes and functions for task related behaviors
+  and applications.
+
+
+//====================================================================
+module   = pEncircle
+
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = An app to enable balanced encircling with multiple vehicles
+
+depends = lib_mbutil, lib_geometry, lib_ufield, lib_contacts, lib_apputil
+
+borndate = 200119
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = An app used in missions where a vehicle is tasked with
+  loitering (encircling) a position, along with one or more other
+  vehicles. This app will note the position of the vehicle in front
+  and behind and recommend a speed that will keep the vehicle
+  balanced between the two. 
+  
+
+//====================================================================
+module   = bngview
+
+type     = Graphical Engineering Tool
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A GUI app rendering pair of vehicles and several geometric relationships
+
+depends = lib_tiff, lib_fltk, lib_mbutil, lib_ivpbuild, lib_ipfview,
+          lib_logutils, lib_logic, lib_genutil, lib_helmivp, lib_bhvutil,
+	  lib_behaviors-colregs, lib_behaviors-marine, lib_behaviors,
+	  lib_encounters, lib_marineview, lib_geometry, lib_ufield,
+	  lib_contacts, lib_apputil
+
+borndate = 200119
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = A GUI application that will render two vehicles (ownship
+ and contact), while displaying certain relative position information
+ such as range, bearing, relative bearing. It will also confirm key
+ Boolean relationships such as contact is aft of ownship, ownship is
+ port of contact etc. It will also calculate projected closest point
+ of approach, projected crossing geometries, e.g., contact will pass
+ on ownhip's port side and so on. Much functionality of the CPA engine
+ is rendered for development and verification in this tool.
+  
+
+//====================================================================
+module   = gridview
+
+type     = Graphical Engineering Tool
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A GUI app for rendering a region/grid, and creating bathymetry map.
+
+depends = lib_tiff, lib_fltk, lib_mbutil, lib_contacts, lib_geometry,
+          lib_voronoi, lib_genpoly, lib_marineview
+
+borndate = 200417
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = The gridview utility renders a region given by a convex or
+  non-convex polygon. A set of grid cells can be over-laid on this
+  region. The user can adjust adjust the values inside grid cells and
+  save to file.  The original use for this tool was as a developmen
+  tool for handling a set of vertices constituting a non-convex
+  polygon and creating a set of convex polygons that cover the
+  non-convex polygon region.  The tool was dual-purposed to be a tool
+  for creating artificial bathymetry maps for a given region and grid.
+
+
+//====================================================================
+module   = voiview
+
+type     = Graphical Engineering Tool
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A GUI app for rendering and testing Voronoi data structures and algorithms
+
+depends = lib_tiff, lib_fltk, lib_mbutil, lib_contacts, lib_geometry, lib_genutil,
+          lib_genpoly, lib_voronoi, lib_marineview
+
+borndate = 101222
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = The voiview utility renders a convex polygon with several
+  randomly placed interior vertices. It will render the Voronoi
+  distribution of the vertices and allow the user to step through
+  variants of Llyod's algorithm to move the vertices to a more
+  equitable distribution. The user may add or delete vertices and
+  re-calculate the distribution. This app exercises much of the
+  Voronoi library code used in the Voronoi based behaviors and apps,
+  with smaller overhead than full vehicle simulations.
+
+//====================================================================
+module   = obview
+
+type     = Graphical Engineering Tool
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+
+thumb = A GUI app for rendering and testing obstacle avoidance algorithms
+
+depends = lib_tiff, lib_fltk, lib_ivpcore, lib_mbutil, lib_ivpbuild, lib_ipfview,
+          lib_contacts, lib_geometry, lib_logutils, lib_logic, lib_genutil,
+	  lib_helmivp, lib_apputil, lib_bhvutil, lib_behaviors-colregs,
+	  lib_behaviors-marine, lib_behaviors, lib_encounters, lib_marineview
+
+borndate = 190906
+doc_url  = Pending
+license  = Non-public
+group    = SwarmBox
+distro   = moos-ivp.org
+
+synopsis = The obview utility renders an obstacle and ship position
+  and allows the user to manipulate both and observe properties of
+  their relative position that are key to the AvoidObstacle
+  behavior. A pop- up window may also be opened to visualize the
+  objective function created by the AvoidObstacle behavior
+

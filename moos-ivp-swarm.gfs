@@ -1,0 +1,23 @@
+//====================================================================
+module   = Swarm Toolbox
+type     = group
+author   = Michael Benjamin
+contact  = mikerb@mit.edu, issues@moos-ivp.org
+org      = MIT
+
+synopsis = The Swarm Toolbox is a collection of robot applications,
+  command-and-control applications, helm behaviors, engineering
+  development tools and core libraries for support multi-vehicle
+  collaborative (swarm) autonomy missions. The mission focus areas
+  were chosen based on ongoing research projects, but the core data
+  structures and algorithms generalize to many different kinds of
+  missions.  This includes capabilities for decentralized
+  auction-based decision-making, new task-handling capability for
+  behaviors based on a new IvPTaskBehavior superclass, and a family of
+  distributed coverage algorithms based on Voronoi decompositions of
+  collaborators. 
+  
+group    = Swarm Toolbox
+distro   = MIT Pavlab Development Code (password required)
+doc_url  = http://oceanai.mit.edu/ivpman
+download = $ svn co https://oceanai.mit.edu/moos-ivp-swarm-aro moos-ivp-swarm

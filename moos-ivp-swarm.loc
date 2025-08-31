@@ -1,0 +1,26 @@
+
+module=app_bngview, loc=4240, foc=13, wkyrs=0.91
+module=app_gridview, loc=1346, foc=14, wkyrs=0.27
+module=app_obview, loc=2120, foc=9, wkyrs=0.44
+module=app_voiview, loc=1251, foc=5, wkyrs=0.25
+
+module=lib_behavior_voronoi, loc=408, foc=2, wkyrs=0.08
+module=pProxonoi, loc=517, foc=5, wkyrs=0.10
+
+module=app_alogmtask, loc=146, foc=3, wkyrs=0.03
+module=lib_bhv_muster, loc=595, foc=2, wkyrs=0.12
+module=lib_bhv_task_convoy, loc=81, foc=2, wkyrs=0.01
+module=lib_bhv_task_muster, loc=138, foc=2, wkyrs=0.02
+module=lib_bhv_task_waypt, loc=112, foc=2, wkyrs=0.02
+
+module=lib_helmtask, loc=2469, foc=22, wkyrs=0.52
+module=lib_marine_pid, loc=1019, foc=4, wkyrs=0.20
+module=lib_voronoi, loc=966, foc=10, wkyrs=0.19
+module=lib_genpoly, loc=1369, foc=14, wkyrs=0.28
+
+module=pEncircle, loc=916, foc=5, wkyrs=0.18
+module=pMarinePIDx, loc=391, foc=5, wkyrs=0.07
+module=pTaskManager, loc=788, foc=9, wkyrs=0.16
+module=uFldTaskMonitor, loc=545, foc=7, wkyrs=0.11
+module=uFldVoronoi, loc=1402, foc=10, wkyrs=0.29
+module=uSimMarineX, loc=2614, foc=15, wkyrs=0.55
