@@ -1,4 +1,67 @@
 //====================================================================
+module   = uFldTaskMonitor
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+thumb    = Provide shoreside appcasting summary of tasks for all vehicles
+
+synopsis = The uFldTaskMonitor application is used for providing a
+  shoreside appcasting summary of tasks that have been received by
+  each node, and how they have been resolved. It is purely for
+  monitoring and debugging.
+
+distro   = moos-ivp.org
+group    = SwarmBox
+borndate = 210208
+doc_url  = https://oceanai.mit.edu/swarmbox/apps/uFldTaskMonitor
+license  = unreleased
+depends  = lib_helmtask, lib_ufield, lib_apputil, lib_mbutil
+
+//====================================================================
+module   = uFldVoronoi
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+thumb    = Provide shoreside Voronoi decomposition of all N Vehicles
+
+synopsis = A shoreside tool maintaining a current state of all
+  vehicles reporting node reports to the shoreside. It will repeatedly
+  build a Voronoi decomposition of the given search region and
+  generate a Voronoi polygon for each vehicle.
+
+distro   = moos-ivp.org
+group    = SwarmBox
+borndate = 200119
+doc_url  = https://oceanai.mit.edu/swarmbox/apps/uFldVoronoi
+license  = unreleased
+depends  = lib_voronoi, lib_geodaid, lib_contacts, lib_geometry, lib_apputil, lib_ufield, lib_mbutile
+
+//====================================================================
+module   = pProxonoi
+type     = MOOS App
+author   = Michael Benjamin
+contact  = mikerb@mit.edu
+org      = MIT
+thumb    = Calculate local Voronoi cell given ownship and contact positions
+
+synopsis = The pProxonoi app will calculate and publish a proximity
+  Voronoi polygon around ownship, given (a) an operation region, and
+  (b) the location of other known contacts in the opregion.  The
+  polygons of all vehicles, if similarly calculated, would constitute
+  a voronoi decomposition of the opregion. Original motivation for
+  this app is to support a Voronoi helm behavior to maneuver in a way
+  to balance a local Voronoi distribution between nearby vehicles.
+
+distro   = moos-ivp.org
+group    = SwarmBox
+borndate = 191225
+doc_url  = https://oceanai.mit.edu/swarmbox/apps/pProxonoi
+license  = unreleased
+depends  = lib_voronoi, lib_ufield, lib_apputil, lib_contacts, lib_geometry, lib_mbutil
+
+//====================================================================
 module   = pTaskManager
 type     = MOOS App
 author   = Michael Benjamin
@@ -7,19 +70,20 @@ org      = MIT
 thumb    = Manage incoming tasks and bids for decentralized decision-making
 
 synopsis = The pTaskManager app is a broker that resides on any
-vehicle participating in decentralized collaborative decision making
-with other vehicles.  The task manager does four primary things: (1)
-Accept registrations for alerts from helm behaviors related to bidding
-on tasks.  (2) Accept incoming MISSION_TASK messages and spawn helm
-behaviors related to bidding on tasks.  (3) As a persistent app that
-is running during the entire mission, it will monitor incoming task
-bids from other vehicles that may arrive prior to the spawning of a
-task behavior that needs these bid messages. It retains a cache of
-"early-arriving" task bids and re-posts them when the task behavior is
-spawned. (4) The task manager monitors outgoing MISSION_TASK messages
-and TASK_STATE status messages produced by local task behaviors. It
-consolidates this information to generate appcasting output which may
-be useful for debugging and monitoring a mission.
+  vehicle participating in decentralized collaborative decision making
+  with other vehicles.  The task manager does four primary things: (1)
+  Accept registrations for alerts from helm behaviors related to
+  bidding on tasks.  (2) Accept incoming MISSION_TASK messages and
+  spawn helm behaviors related to bidding on tasks.  (3) As a
+  persistent app that is running during the entire mission, it will
+  monitor incoming task bids from other vehicles that may arrive prior
+  to the spawning of a task behavior that needs these bid messages. It
+  retains a cache of "early-arriving" task bids and re-posts them when
+  the task behavior is spawned. (4) The task manager monitors outgoing
+  MISSION_TASK messages and TASK_STATE status messages produced by
+  local task behaviors. It consolidates this information to generate
+  appcasting output which may be useful for debugging and monitoring a
+  mission.
 
 distro   = moos-ivp.org
 group    = SwarmBox
